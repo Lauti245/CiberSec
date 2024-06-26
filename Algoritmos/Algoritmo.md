@@ -1,0 +1,5 @@
+-Ping para probar posible conexion 
+-Nmap para sacar servicios
+-Según servicio checkear metódos 
+-Conseguir una reverse-shell (**rlwrap**: Es un programa que envuelve a otro programa, proporcionando una interfaz de línea de comandos mejorada con características como el historial de comandos y la edición de línea de comandos.)
+-Escalar privilegios

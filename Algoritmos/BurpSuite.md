@@ -1,0 +1,4 @@
+- Si no tenemos el puerto que queremos lo configuramos para que lo intercepte burpsuite
+- Activamos el interceptor 
+- Una vez que llege el resultado si queremos probar  mensajes mandando directamente de burp lo mandamos al repetidor.
+- 

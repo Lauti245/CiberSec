@@ -1,0 +1,43 @@
+-nmap : port 80 open
+- etc host , we go inside the web
+- dir /invite a js file 
+- beautifier the js file to understand it
+- we get a encrypted message in the reply
+- go to cyberchef to decrypt
+- we get 301 moved permanently
+- wrong path
+- we get the invitation code
+- apparently format: encoded is base64
+- echo NUU5U1ctNzVCWTktTDhTMUItWklIREo= | base64 -d  
+- get the invitation code , register and login 
+- look for vulnerabilities on the page 
+- intercept with burpsuite
+- try to send shorter path
+- found one that show me what im allowed to do
+- look for admin endpoints
+- chose the one that updates the user settings 
+- wrong content type , check content-type area and change it to json
+- missing parameters at the end {}
+- successful at becoming admin 
+- at the generate vpn option found that we can inject code
+- got the shell 
+- found .env where users might be saved
+- found user and passwd of a db
+- look for mysql 
+- got in with credentials
+- found password but impossible to crack 
+- look for users at /etc/passwd
+- found user admin , try same password
+- success
+- got user.txt
+- look for files owned by admin -> find / -user admin 2>/dev/null | grep -v '^/sys\|^/proc\|^/run'
+- found mail 
+- look for the CVE 
+- Use it to get the root 
+- did it but it is not enough 
+- found proof of concept on github 
+- zip the content 
+- downloaded from the machine 
+- followed steps 
+- got the root from cve
+- 

