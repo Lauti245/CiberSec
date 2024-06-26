@@ -1,6 +1,6 @@
 puerto 21
 
-1. Old version allow to get in with "anonymous" 
+1. Old versions allow to get in with "anonymous" 
 3. 
 
 
